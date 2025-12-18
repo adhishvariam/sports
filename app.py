@@ -69,7 +69,6 @@ def display(venues):
 
     for venue in venues:
         print("=" * 70)
-        # print(f"Venue Name : {venue.get('name')}")
         print(f"Venue Name : {venue.get('name','')}")
         print(f"Distance   : {venue.get('kilometres','0.0')}")
         print(f"Sports     : {' , '.join(venue.get('sports', []))}")
@@ -83,12 +82,7 @@ def display(venues):
 def main():
     venues = fetch_venue()
     sort_venues=sort_venues_by_dist(venues)
-    grouped_venues = group_venues_by_sport(venues)
-    # print(f"Total venues: {len(venues)}")
-    # sorted_venues = sort_venues_by_dist(venues)
-    # print("sorted_venues----",sorted_venues)
-    # group=group_venues_by_sport(venues)
-    # print("group---",group)
+    grouped_venues = group_venues_by_sport(sort_venues)
     while True:
         print("-------- Sports Venues -------------")
         print("1. View all venues (sorted by distance)")
@@ -104,8 +98,8 @@ def main():
             print("Available sports:")
             for sport in grouped_venues.keys():
                 print(f"- {sport}")
-            search = input("Enter sport name: ").strip()
-            venues_by_sport = grouped_venues.get(search)
+            search = input("Enter sport name: ").strip().lower()
+            venues_by_sport = grouped_venues.get(search.capitalize())
 
             if not venues_by_sport:
                 print("No venues found...")
