@@ -1,3 +1,4 @@
+#-------------------------------WITH CLI-----------------------------------------------------------
 import requests
 import os
 from dotenv import load_dotenv
@@ -21,43 +22,55 @@ def fetch_venue():
 # def sort_venues_by_dist(venues):
 #     return sorted(venues, key=lambda v: v["kilometres"])
 def sort_venues_by_dist(venues):
-    if len(venues) <= 1:
-        return venues
+    try:
+        if len(venues) <= 1:
+            return venues
 
-    center = venues[len(venues) // 2]["kilometres"]
+        center = venues[len(venues) // 2]["kilometres"]
 
-    left = [v for v in venues if v["kilometres"] < center]
-    middle = [v for v in venues if v["kilometres"] == center]
-    right = [v for v in venues if v["kilometres"] > center]
+        left = [v for v in venues if v["kilometres"] < center]
+        middle = [v for v in venues if v["kilometres"] == center]
+        right = [v for v in venues if v["kilometres"] > center]
 
-    return sort_venues_by_dist(left) + middle + sort_venues_by_dist(right)
+        return sort_venues_by_dist(left) + middle + sort_venues_by_dist(right)
+    except Exception as e:
+        print("Error occured:", e)
+        return venues    
 
 #-------group by sport---------------------
 def group_venues_by_sport(venues):
-    grouped = {}
+    try:
+        grouped = {}
 
-    for venue in venues:
-        for sport in venue["sports"]:
-            if sport not in grouped:
-                grouped[sport] = []
-            grouped[sport].append(venue)
+        for venue in venues:
+            for sport in venue["sports"]:
+                if sport not in grouped:
+                    grouped[sport] = []
+                grouped[sport].append(venue)
 
-    return grouped
+        return grouped
+    except Exception as e:
+        print("Error occured:", e)
+        return venues     
 
 #-----------manual search------------------------
 def search_venues(venues, query):
-    query = query.lower()
-    results = []
+    try:
+        query = query.lower()
+        results = []
 
-    for venue in venues:
-        name = venue.get("name", "").lower()
-        # address = venue.get("address", "").lower()
-        sports = " ".join(venue.get("sports", [])).lower()
+        for venue in venues:
+            name = venue.get("name", "").lower()
+            # address = venue.get("address", "").lower()
+            sports = " ".join(venue.get("sports", [])).lower()
 
-        if query in name or query in sports:
-            results.append(venue)
+            if query in name or query in sports:
+                results.append(venue)
 
-    return results
+        return results
+    except Exception as e:
+        print("Error occured:", e)
+        return venues     
 
 
 
@@ -117,13 +130,6 @@ def main():
             break    
         else:
             print("Invalid")          
-
-
-
-
-
-
-
-    
+   
 if __name__ == "__main__":
     main()

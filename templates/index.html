@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sports Venues</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        width: 70%;
+        margin: auto;
+        text-align: center;
+      }
+
+      .search-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .venue-card {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Sports Venues</h2>
+
+      <form method="get">
+        <div class="search-box">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search venue or sport"
+            value="{{ query }}"
+          />
+
+          <button type="submit" name="action" value="search">
+            Search
+          </button>
+
+          <select name="sport">
+            <option value="">All Sports</option>
+            {% for sport in grouped.keys() %}
+              <option value="{{ sport }}"
+                {% if sport == selected_sport %}selected{% endif %}>
+                {{ sport }}
+              </option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" name="action" value="filter">
+            Filter
+          </button>
+        </div>
+      </form>
+
+      <hr />
+
+      {% if venues %}
+        {% for venue in venues %}
+          <div class="venue-card">
+            <strong>{{ venue.name }}</strong><br />
+            Distance: {{ venue.kilometres }} km<br />
+            Sports: {{ ", ".join(venue.sports) }}<br />
+            Rating: {{ venue.rating }}<br />
+            Address: {{ venue.address }}<br />
+          </div>
+          <hr />
+        {% endfor %}
+      {% else %}
+        <p>No venues found.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
