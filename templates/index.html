@@ -9,10 +9,12 @@
       }
 
       .container {
-        width: 70%;
-        margin: auto;
-        text-align: center;
-      }
+            width: 70%;
+            margin: auto;
+            padding: 10px;
+            background-color: #f7f7f7;
+            text-align: center;
+            }
 
       .search-box {
         display: flex;
@@ -20,12 +22,12 @@
         align-items: center;
         gap: 15px;
         flex-wrap: wrap;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
       }
 
       .venue-card {
-        margin-bottom: 20px;
-        text-align: center;
+        margin-bottom: 70px;
+        text-align: left;
       }
     </style>
   </head>
@@ -63,18 +65,24 @@
         </div>
       </form>
 
-      <hr />
+      <!-- <hr /> -->
 
       {% if venues %}
         {% for venue in venues %}
           <div class="venue-card">
+             <img
+                    src="https://i.pinimg.com/736x/e4/55/d5/e455d53c858ab50ef5140db2955b89a8.jpg"
+                    alt="Sports Venue"
+                    width="100px"
+                    style="float: left; margin-right: 50px;"
+                />
             <strong>{{ venue.name }}</strong><br />
             Distance: {{ venue.kilometres }} km<br />
             Sports: {{ ", ".join(venue.sports) }}<br />
             Rating: {{ venue.rating }}<br />
             Address: {{ venue.address }}<br />
           </div>
-          <hr />
+          <!-- <hr /> -->
         {% endfor %}
       {% else %}
         <p>No venues found.</p>
