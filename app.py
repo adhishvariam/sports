@@ -41,22 +41,6 @@ def paginate_venues(venues, page, per_page=5):
 # def sort_venues_by_dist(venues):
 #     return sorted(venues, key=lambda v: v["kilometres"])
 
-
-# def favorite(venues):
-# try:
-# data= [item for item in venues if item.get("favourite") == 1]
-# return data
-# except Exception as e:
-# print("Error occured:", e)
-# return venues
-
-# def filter_by_distance(venues, km):
-# return [v for v in venues if v.get("kilometres", 0) <= km]
-# import json
-
-# def save_favourites(favs):
-# with open("favs.json","w") as f:
-# json.dump(favs, f, indent=4)
 #sort by rating then distance
 def sort_venues_by_rating_and_dist(venues):
     try:
